@@ -1,0 +1,34 @@
+sudo: false
+
+language: c
+
+addons:
+    apt:
+        packages:
+        - libgmp-dev
+
+cache:
+    directories:
+    - $HOME/.stack/
+
+matrix:
+    include:
+    - env: ARGS="--resolver lts"
+    - env: ARGS="--resolver nightly"
+
+before_install:
+- mkdir -p ~/.local/bin
+- export PATH=~/.local/bin:$PATH
+- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip=1 -C ~/.local/bin '*/stack'
+
+install:
+- travis_wait stack $ARGS --no-terminal --skip-ghc-check setup
+- travis_wait stack $ARGS --no-terminal --skip-ghc-check test --only-snapshot
+- stack --resolver lts --no-terminal --skip-ghc-check install hlint git-fmt stylish-haskell
+
+script:
+- stack $ARGS --no-terminal --skip-ghc-check test
+
+after_script:
+- hlint .
+- git fmt -m dry-run --operate-on-tracked
