@@ -11,9 +11,20 @@ module Main (
     main,
 ) where
 
+import Control.Monad.Reader
+
+import Options.Applicative
+
 import System.Environment
 
 import Werewolf.Slack.Application
+import Werewolf.Slack.Options
 
 main :: IO ()
-main = getArgs >>= runApplication
+main = getArgs >>= run
+
+run :: [String] -> IO ()
+run args = handleParseResult (execParserPure werewolfSlackPrefs werewolfSlackInfo args) >>= handle
+
+handle :: Options -> IO ()
+handle = runReaderT runApplication

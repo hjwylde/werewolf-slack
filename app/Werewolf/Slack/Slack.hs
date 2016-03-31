@@ -6,7 +6,9 @@ License     : BSD3
 Maintainer  : public@hjwylde.com
 -}
 
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE OverloadedStrings     #-}
 
 module Werewolf.Slack.Slack (
     -- * Slack
@@ -14,29 +16,30 @@ module Werewolf.Slack.Slack (
 ) where
 
 import Control.Monad
+import Control.Monad.Reader
 
-import           Data.Aeson
-import qualified Data.Text  as T
+import Data.Aeson
 
 import Network.HTTP.Client
 import Network.HTTP.Client.TLS
 import Network.HTTP.Types.Method
 
-url :: String -> String
-url accessToken = "https://hooks.slack.com/services/" ++ accessToken
+import Werewolf.Slack.Options
 
-notify :: String -> String -> String -> IO ()
-notify accessToken to message = do
-    manager <- newManager tlsManagerSettings
+url :: MonadReader Options m => m String
+url = asks $ ("https://hooks.slack.com/services/" ++) . optAccessToken
 
-    initialRequest  <- parseUrl $ url accessToken
+notify :: (MonadIO m, MonadReader Options m) => String -> String -> m ()
+notify to message = do
+    manager <- liftIO $ newManager tlsManagerSettings
+
+    initialRequest  <- url >>= liftIO . parseUrl
     let request     = initialRequest { method = methodPost, requestBody = body }
 
-    void $ httpLbs request manager
+    void . liftIO $ httpLbs request manager
     where
         body    = RequestBodyLBS $ encode payload
         payload = object
             [ "channel" .= to
             , "text" .= message
-            , "icon_emoji" .= T.unpack ":wolf:"
             ]
