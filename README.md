@@ -25,11 +25,30 @@ For the Loners: complete their own objective.
 For the Villagers: lynch all of the Werewolves.  
 For the Werewolves: devour all of the Villagers.
 
-### Installing
+### Setup
+
+#### Preparing Slack
+
+Set up an Incoming WebHook [here](https://my.slack.com/services/new/incoming-webhook/).
+Make note of the *access token*, we'll be using that soon.
+
+Set up a Slash Command (`/werewolf` or similar)
+    [here](https://my.slack.com/services/new/slash-commands/).
+The Slash Command should perform a GET request to the server werewolf-slack is going to be hosted
+    on.
+
+#### Installing
 
 Installing werewolf-slack is easiest done using either
-    [stack](https://github.com/commercialhaskell/stack) (recommended) or
+    [Docker](https://www.docker.com/) (recommended),
+    [stack](https://github.com/commercialhaskell/stack) or
     [Cabal](https://github.com/haskell/cabal).
+
+**Using Docker:**
+
+```bash
+docker pull hjwylde/werewolf-slack
+```
 
 **Using stack:**
 
@@ -45,8 +64,37 @@ cabal-install werewolf-slack werewolf
 export PATH=$PATH:~/.cabal/bin
 ```
 
+#### Running
+
+werewolf-slack is a simple web server that listens for events from the Slack Slash Command.
+After receiving an event werewolf-slack forwards it on to the werewolf game engine and uses the
+    Incoming WebHook to send back the response.
+
+Running werewolf-slack is easiest done using either
+    [Docker](https://www.docker.com/) (recommended) or
+    the binary itself.
+Make sure to add rules to your firewall for werewolf-slack's port.
+
+**With Docker:**
+
+```bash
+docker run -d -p 80:8080 hjwylde/werewolf-slack -t ACCESS_TOKEN
+```
+
+**With werewolf-slack**
+
+```bash
+werewolf-slack -p 80 -t ACCESS_TOKEN &
+```
+
+#### Configuration
+
+It is possible to also configure the channel to play werewolf in and the port that werewolf-slack
+    listens on.
+This is done via the `--channel-name` (`-c`) and `--port` (`-p`) options respectively.
+
+By default the channel name is *werewolf* and port *8080*.
+
 ### Usage
 
-#### Commands
-
-See `/werewolf help`.
+Type `/werewolf help` in your Slack channel to get going!
