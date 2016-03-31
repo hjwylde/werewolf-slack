@@ -28,6 +28,7 @@ import qualified Werewolf.Slack.Version as This
 data Options = Options
     { optAccessToken :: String
     , optChannelName :: String
+    , optDebug       :: Bool
     , optPort        :: Port
     } deriving (Eq, Show)
 
@@ -61,6 +62,10 @@ werewolfSlack = Options
         [ long "channel-name", short 'c', metavar "CHANNEL"
         , value "werewolf", showDefault
         , help "Specify the channel name"
+        ])
+    <*> switch (mconcat
+        [ long "debug", short 'd'
+        , help "Enable debug mode"
         ])
     <*> portOption (mconcat
         [ long "port", short 'p', metavar "NAT"
