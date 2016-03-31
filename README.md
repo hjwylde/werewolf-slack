@@ -83,7 +83,7 @@ Make sure to add rules to your firewall for werewolf-slack's port.
 docker run -d -p 80:8080 hjwylde/werewolf-slack -t ACCESS_TOKEN -v VALIDATION_TOKEN
 ```
 
-**With werewolf-slack**
+**With werewolf-slack:**
 
 ```bash
 werewolf-slack -p 80 -t ACCESS_TOKEN -v VALIDATION_TOKEN &
