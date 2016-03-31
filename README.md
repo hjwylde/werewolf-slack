@@ -37,6 +37,7 @@ Set up a Slash Command (`/werewolf` or similar)
     [here](https://my.slack.com/services/new/slash-commands/).
 The Slash Command should perform a GET request to the server werewolf-slack is going to be hosted
     on.
+Make note of the *validation token* here too.
 
 #### Installing
 
@@ -79,13 +80,13 @@ Make sure to add rules to your firewall for werewolf-slack's port.
 **With Docker:**
 
 ```bash
-docker run -d -p 80:8080 hjwylde/werewolf-slack -t ACCESS_TOKEN
+docker run -d -p 80:8080 hjwylde/werewolf-slack -t ACCESS_TOKEN -v VALIDATION_TOKEN
 ```
 
 **With werewolf-slack**
 
 ```bash
-werewolf-slack -p 80 -t ACCESS_TOKEN &
+werewolf-slack -p 80 -t ACCESS_TOKEN -v VALIDATION_TOKEN &
 ```
 
 #### Configuration
