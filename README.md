@@ -4,7 +4,8 @@
 [![Build Status](https://travis-ci.org/hjwylde/werewolf-slack.svg?branch=master)](https://travis-ci.org/hjwylde/werewolf-slack)
 [![Release](https://img.shields.io/github/release/hjwylde/werewolf-slack.svg)](https://github.com/hjwylde/werewolf-slack/releases/latest)
 
-A Slack chat client for playing [werewolf](https://github.com/hjwylde/werewolf).
+A chat interface for playing [werewolf](https://github.com/hjwylde/werewolf) in
+    [Slack](https://slack.com/).
 The game engine is based off of the party game Mafia, also known as Werewolf.
 See the [Wikipedia article](https://en.wikipedia.org/wiki/Mafia_(party_game)) for a rundown on it's
     gameplay and history.

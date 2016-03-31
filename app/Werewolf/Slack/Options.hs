@@ -46,7 +46,7 @@ werewolfSlackInfo = info (infoOptions <*> werewolfSlack) (fullDesc <> header' <>
             , help "Show this binary's version"
             ]
 
-        header'     = header "A Slack chat client for playing werewolf."
+        header'     = header "A Slack chat interface for playing werewolf."
         progDesc'   = progDesc
             "The game engine is based off of the party game Mafia, also known as Werewolf."
 
