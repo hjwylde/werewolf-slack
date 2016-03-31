@@ -8,7 +8,8 @@
 
 *Minor*
 
-* Added in `--validation-token` option and validation. ([#9](https://github.com/hjwylde/werewolf/issues/9))
+* Added a `--validation-token` option and validation. ([#9](https://github.com/hjwylde/werewolf/issues/9))
+* Added a `--debug` flag. ([#4](https://github.com/hjwylde/werewolf/issues/4))
 
 ### v0.1.0.0
 

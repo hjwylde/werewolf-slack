@@ -38,11 +38,13 @@ runApplication = do
 
 application :: Options -> Application
 application options request respond
-    | isNothing mToken                              = badRequest
-    | fromJust mToken /= optValidationToken options = unauthorized
-    | isNothing mUser || isNothing mUserCommand     = badRequest
-    | otherwise                                     = forkIO (runReaderT action options) >> accepted
+    | isNothing mToken                              = debugRequest >> badRequest
+    | fromJust mToken /= optValidationToken options = debugRequest >> unauthorized
+    | isNothing mUser || isNothing mUserCommand     = debugRequest >> badRequest
+    | otherwise                                     = debugRequest >> forkIO (runReaderT action options) >> accepted
     where
+        debugRequest    = when (optDebug options) $ print request
+
         accepted        = respond $ responseLBS status202 [] (BSLC.pack $ unwords [":wolf:", fromJust mUserCommand, ":moon:"])
         badRequest      = respond $ responseLBS status400 [] "bad request"
         unauthorized    = respond $ responseLBS status401 [] "unauthorized"

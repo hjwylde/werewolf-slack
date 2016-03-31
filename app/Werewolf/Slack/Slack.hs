@@ -15,7 +15,7 @@ module Werewolf.Slack.Slack (
     notify,
 ) where
 
-import Control.Monad
+import Control.Monad.Extra
 import Control.Monad.Reader
 
 import Data.Aeson
@@ -36,7 +36,9 @@ notify to message = do
     initialRequest  <- url >>= liftIO . parseUrl
     let request     = initialRequest { method = methodPost, requestBody = body }
 
-    void . liftIO $ httpLbs request manager
+    response <- liftIO $ httpLbs request manager
+
+    whenM (asks optDebug) $ liftIO (print response)
     where
         body    = RequestBodyLBS $ encode payload
         payload = object
