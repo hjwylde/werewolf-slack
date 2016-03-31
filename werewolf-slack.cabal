@@ -7,7 +7,6 @@ homepage:       https://github.com/hjwylde/werewolf-slack
 
 synopsis:       A Slack chat client for playing werewolf
 description:    The game engine is based off of the party game Mafia, also known as Werewolf.
-                See https://github.com/hjwylde/werewolf-slack for help on running the chat client.
 
 license:        BSD3
 license-file:   LICENSE
