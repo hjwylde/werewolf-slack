@@ -44,6 +44,8 @@ interpret user userCommand = do
 
 handle :: (MonadIO m, MonadReader Options m) => Response -> m ()
 handle response = do
+    whenM (asks optDebug) $ liftIO (print response)
+
     channelName <- asks $ ('#':) . optChannelName
 
     forM_ (messages response) $ \(Message mTo message) ->

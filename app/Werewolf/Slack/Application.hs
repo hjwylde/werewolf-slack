@@ -37,10 +37,13 @@ runApplication = do
     liftIO $ run (optPort options) (application options)
 
 application :: Options -> Application
-application options request respond = maybe failure (\action -> forkIO (runReaderT action options) >> success) mAction
+application options request respond = do
+    when (optDebug options) (print request)
+
+    maybe badRequest (\action -> forkIO (runReaderT action options) >> accepted) mAction
     where
-        failure = respond $ responseLBS status400 [] "bad request"
-        success = respond $ responseLBS status202 [] (BSLC.pack $ unwords [":wolf:", fromJust mUserCommand, ":moon:"])
+        badRequest  = respond $ responseLBS status400 [] "bad request"
+        accepted    = respond $ responseLBS status202 [] (BSLC.pack $ unwords [":wolf:", fromJust mUserCommand, ":moon:"])
 
         param name      = join . lookup name $ queryString request
         mUser           = BSC.unpack <$> param "user_name"
