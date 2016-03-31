@@ -2,6 +2,10 @@
 
 ### Upcoming
 
+*Major*
+
+* Added options for specifying the Slack access token, channel name and port to run the server on. ([#6](https://github.com/hjwylde/werewolf/issues/6))
+
 ### v0.1.0.0
 
 *Major*

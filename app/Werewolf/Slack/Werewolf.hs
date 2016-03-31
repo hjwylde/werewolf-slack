@@ -6,12 +6,16 @@ License     : BSD3
 Maintainer  : public@hjwylde.com
 -}
 
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+
 module Werewolf.Slack.Werewolf (
     -- * Werewolf
-    executeUserCommand,
+    execute,
 ) where
 
 import Control.Monad.Extra
+import Control.Monad.Reader
 
 import           Data.Aeson
 import qualified Data.ByteString.Lazy.Char8 as BSLC
@@ -22,20 +26,25 @@ import Game.Werewolf
 
 import System.Process
 
+import Werewolf.Slack.Options
 import Werewolf.Slack.Slack
 
-executeUserCommand :: String -> String -> String -> IO ()
-executeUserCommand accessToken user userCommand = do
-    stdout          <- readCreateProcess (proc command arguments) ""
-    let mResponse   = decode (BSLC.pack stdout) :: Maybe Response
+execute :: (MonadIO m, MonadReader Options m) => String -> String -> m ()
+execute user userCommand = whenJustM (interpret user userCommand) handle
 
-    whenJust mResponse $ \response ->
-        forM_ (messages response) $ \(Message mTo message) ->
-            notify accessToken (fromMaybe channelName (T.unpack <$> mTo)) (T.unpack message)
+interpret :: MonadIO m => String -> String -> m (Maybe Response)
+interpret user userCommand = do
+    stdout <- liftIO $ readCreateProcess (proc command arguments) ""
+
+    return (decode (BSLC.pack stdout) :: Maybe Response)
     where
         atUser      = if take 1 user == "@" then user else '@':user
         command     = "werewolf"
         arguments   = ["--caller", atUser, "interpret", "--"] ++ words userCommand
 
-channelName :: String
-channelName = "#werewolf"
+handle :: (MonadIO m, MonadReader Options m) => Response -> m ()
+handle response = do
+    channelName <- asks $ ('#':) . optChannelName
+
+    forM_ (messages response) $ \(Message mTo message) ->
+        notify (fromMaybe channelName (T.unpack <$> mTo)) (T.unpack message)
