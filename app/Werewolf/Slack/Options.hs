@@ -47,10 +47,8 @@ werewolfSlackInfo = info (infoOptions <*> werewolfSlack) (fullDesc <> header' <>
             ]
 
         header'     = header "A Slack chat client for playing werewolf."
-        progDesc'   = progDesc $ unwords
-            [ "The game engine is based off of the party game Mafia, also known as Werewolf."
-            , "See https://github.com/hjwylde/werewolf-slack for help on running the chat client."
-            ]
+        progDesc'   = progDesc
+            "The game engine is based off of the party game Mafia, also known as Werewolf."
 
 -- | An options parser.
 werewolfSlack :: Parser Options
