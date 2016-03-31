@@ -26,9 +26,10 @@ import Options.Applicative
 import qualified Werewolf.Slack.Version as This
 
 data Options = Options
-    { optAccessToken :: String
-    , optChannelName :: String
-    , optPort        :: Port
+    { optAccessToken     :: String
+    , optChannelName     :: String
+    , optPort            :: Port
+    , optValidationToken :: String
     } deriving (Eq, Show)
 
 -- | The default preferences.
@@ -55,7 +56,7 @@ werewolfSlack :: Parser Options
 werewolfSlack = Options
     <$> strOption (mconcat
         [ long "access-token", short 't', metavar "TOKEN"
-        , help "Specify the Slack access token"
+        , help "Specify the access token"
         ])
     <*> strOption (mconcat
         [ long "channel-name", short 'c', metavar "CHANNEL"
@@ -66,6 +67,10 @@ werewolfSlack = Options
         [ long "port", short 'p', metavar "NAT"
         , value 8080, showDefault
         , help "Specify the port for the server to listen on"
+        ])
+    <*> strOption (mconcat
+        [ long "validation-token", short 'v', metavar "TOKEN"
+        , help "Specify the validation token"
         ])
     where
         portOption = option auto

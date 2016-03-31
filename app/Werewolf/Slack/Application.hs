@@ -23,7 +23,7 @@ import qualified Data.ByteString.Char8      as BSC
 import qualified Data.ByteString.Lazy.Char8 as BSLC
 import           Data.Maybe
 
-import Network.HTTP.Types       (status202, status400)
+import Network.HTTP.Types
 import Network.Wai              hiding (Response, requestBody, responseStatus)
 import Network.Wai.Handler.Warp
 
@@ -37,12 +37,18 @@ runApplication = do
     liftIO $ run (optPort options) (application options)
 
 application :: Options -> Application
-application options request respond = maybe failure (\action -> forkIO (runReaderT action options) >> success) mAction
+application options request respond
+    | isNothing mToken                              = badRequest
+    | fromJust mToken /= optValidationToken options = unauthorized
+    | isNothing mUser || isNothing mUserCommand     = badRequest
+    | otherwise                                     = forkIO (runReaderT action options) >> accepted
     where
-        failure = respond $ responseLBS status400 [] "bad request"
-        success = respond $ responseLBS status202 [] (BSLC.pack $ unwords [":wolf:", fromJust mUserCommand, ":moon:"])
+        accepted        = respond $ responseLBS status202 [] (BSLC.pack $ unwords [":wolf:", fromJust mUserCommand, ":moon:"])
+        badRequest      = respond $ responseLBS status400 [] "bad request"
+        unauthorized    = respond $ responseLBS status401 [] "unauthorized"
 
         param name      = join . lookup name $ queryString request
+        mToken          = BSC.unpack <$> param "token"
         mUser           = BSC.unpack <$> param "user_name"
         mUserCommand    = BSC.unpack <$> param "text"
-        mAction         = execute <$> mUser <*> mUserCommand
+        action          = fromJust $ execute <$> mUser <*> mUserCommand
