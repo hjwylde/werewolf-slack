@@ -17,11 +17,11 @@ module Werewolf.Slack.Slack (
 
 import Control.Monad.Extra
 import Control.Monad.Reader
+import Control.Monad.State
 
 import Data.Aeson
 
 import Network.HTTP.Client
-import Network.HTTP.Client.TLS
 import Network.HTTP.Types.Method
 
 import Werewolf.Slack.Options
@@ -29,12 +29,14 @@ import Werewolf.Slack.Options
 url :: MonadReader Options m => m String
 url = asks $ ("https://hooks.slack.com/services/" ++) . optAccessToken
 
-notify :: (MonadIO m, MonadReader Options m) => String -> String -> m ()
+notify :: (MonadIO m, MonadReader Options m, MonadState Manager m) => String -> String -> m ()
 notify to message = do
-    manager <- liftIO $ newManager tlsManagerSettings
+    manager <- get
 
     initialRequest  <- url >>= liftIO . parseUrl
     let request     = initialRequest { method = methodPost, requestBody = body }
+
+    whenM (asks optDebug) $ liftIO (print request)
 
     response <- liftIO $ httpLbs request manager
 

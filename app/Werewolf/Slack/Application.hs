@@ -18,11 +18,14 @@ module Werewolf.Slack.Application (
 import Control.Concurrent
 import Control.Monad.Extra
 import Control.Monad.Reader
+import Control.Monad.State
 
 import qualified Data.ByteString.Char8      as BSC
 import qualified Data.ByteString.Lazy.Char8 as BSLC
 import           Data.Maybe
 
+import Network.HTTP.Client      hiding (queryString)
+import Network.HTTP.Client.TLS
 import Network.HTTP.Types
 import Network.Wai              hiding (Response, requestBody, responseStatus)
 import Network.Wai.Handler.Warp
@@ -34,16 +37,18 @@ runApplication :: (MonadIO m, MonadReader Options m) => m ()
 runApplication = do
     options <- ask
 
-    liftIO $ run (optPort options) (application options)
+    manager <- liftIO $ newManager tlsManagerSettings
 
-application :: Options -> Application
-application options request respond
+    liftIO $ run (optPort options) (application options manager)
+
+application :: Options -> Manager -> Application
+application options manager request respond
     | isNothing mToken                              = debugRequest >> badRequest
     | fromJust mToken /= optValidationToken options = debugRequest >> unauthorized
     | isNothing mUser || isNothing mUserCommand     = debugRequest >> badRequest
-    | otherwise                                     = debugRequest >> forkIO (runReaderT action options) >> accepted
+    | otherwise                                     = debugRequest >> forkIO (evalStateT (runReaderT action options) manager) >> accepted
     where
-        debugRequest    = when (optDebug options) $ print request
+        debugRequest = when (optDebug options) $ print request
 
         accepted        = respond $ responseLBS status202 [] (BSLC.pack $ unwords [":wolf:", fromJust mUserCommand, ":moon:"])
         badRequest      = respond $ responseLBS status400 [] "bad request"
