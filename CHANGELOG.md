@@ -2,6 +2,10 @@
 
 ### Upcoming
 
+*Major*
+
+* Added support for werewolf v0.5.0.0. ([#12](https://github.com/hjwylde/werewolf/issues/12))
+
 ### v0.2.0.1
 
 *Revisions*
