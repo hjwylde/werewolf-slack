@@ -6,7 +6,7 @@
 
 A chat interface for playing [werewolf](https://github.com/hjwylde/werewolf) in
     [Slack](https://slack.com/).
-The game engine is based off of the party game Mafia, also known as Werewolf.
+Werewolf is a well known social party game, commonly also called Mafia.
 See the [Wikipedia article](https://en.wikipedia.org/wiki/Mafia_(party_game)) for a rundown on it's
     gameplay and history.
 
@@ -18,8 +18,7 @@ Most have faces and are known to the inhabitants of Fougères in Brittany, Franc
 
 Each night Werewolves attack the village and devour the innocent.
 For centuries no one knew how to fight this scourge, however recently a theory has taken ahold
-    that
-    mayhaps the Werewolves walk among the Villagers themselves...
+    that mayhaps the Werewolves walk among the Villagers themselves...
 
 Objective of the Game:  
 For the Loners: complete their own objective.  
