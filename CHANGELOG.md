@@ -2,6 +2,8 @@
 
 ### Upcoming
 
+### v0.2.0.1
+
 *Revisions*
 
 * Added version to werewolf-slack in Dockerfile. ([#11](https://github.com/hjwylde/werewolf/issues/11))
