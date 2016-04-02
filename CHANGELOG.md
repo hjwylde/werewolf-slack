@@ -2,6 +2,8 @@
 
 ### Upcoming
 
+### v0.2.0.2
+
 *Revisions*
 
 * Added version to werewolf in Dockerfile.
