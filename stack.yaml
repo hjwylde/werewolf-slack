@@ -5,4 +5,4 @@ ghc-options:
 packages:
 - '.'
 extra-deps:
-- 'werewolf-0.4.11.0'
+- 'werewolf-0.4.12.0'
