@@ -34,17 +34,20 @@ import Werewolf.Slack.Options
 import Werewolf.Slack.Slack
 
 execute :: (MonadIO m, MonadReader Options m, MonadState Manager m) => String -> String -> m ()
-execute user userCommand = whenJustM (interpret user userCommand) handle
+execute user userCommand = do
+    channelName <- asks optChannelName
 
-interpret :: MonadIO m => String -> String -> m (Maybe Response)
-interpret user userCommand = do
+    whenJustM (interpret channelName user userCommand) handle
+
+interpret :: MonadIO m => String -> String -> String -> m (Maybe Response)
+interpret channelName user userCommand = do
     stdout <- liftIO $ readCreateProcess (proc command arguments) ""
 
     return (decode (encodeUtf8 $ TL.pack stdout) :: Maybe Response)
     where
         atUser      = if take 1 user == "@" then user else '@':user
         command     = "werewolf"
-        arguments   = ["--caller", atUser, "interpret", "--"] ++ words userCommand
+        arguments   = ["--caller", atUser, "--tag", channelName, "interpret", "--"] ++ words userCommand
 
 handle :: (MonadIO m, MonadReader Options m, MonadState Manager m) => Response -> m ()
 handle response = do
