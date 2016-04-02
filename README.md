@@ -48,7 +48,7 @@ Installing werewolf-slack is easiest done using either
 **Using Docker:**
 
 ```bash
-docker pull hjwylde/werewolf-slack
+docker pull hjwylde/werewolf-slack-docker
 ```
 
 **Using stack:**
@@ -79,7 +79,7 @@ Make sure to add rules to your firewall for werewolf-slack's port.
 **With Docker:**
 
 ```bash
-docker run -d -p 80:8080 hjwylde/werewolf-slack -t ACCESS_TOKEN -v VALIDATION_TOKEN
+docker run -d -p 80:8080 hjwylde/werewolf-slack-docker -t ACCESS_TOKEN -v VALIDATION_TOKEN
 ```
 
 **With werewolf-slack:**

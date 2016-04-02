@@ -2,6 +2,10 @@
 
 ### Upcoming
 
+*Minor*
+
+* Split out Dockerfile into its own repository. ([#13](https://github.com/hjwylde/werewolf/issues/13))
+
 ### v0.3.0.1
 
 *Revisions*
