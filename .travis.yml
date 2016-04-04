@@ -13,7 +13,6 @@ cache:
 
 matrix:
     include:
-    - env: ARGS="--resolver lts"
     - env: ARGS="--resolver nightly"
 
 before_install:
