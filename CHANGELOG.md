@@ -6,6 +6,12 @@
 
 * Split out Dockerfile into its own repository. ([#13](https://github.com/hjwylde/werewolf/issues/13))
 
+### v0.3.0.2
+
+*Revisions*
+
+* Removed werewolf version specification from stack.yaml.
+
 ### v0.3.0.1
 
 *Revisions*
