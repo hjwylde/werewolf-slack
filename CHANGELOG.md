@@ -2,6 +2,8 @@
 
 ### Upcoming
 
+### v0.3.0.2
+
 *Revisions*
 
 * Removed werewolf version specification from stack.yaml.
