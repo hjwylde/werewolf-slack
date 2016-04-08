@@ -46,11 +46,11 @@ application options manager request respond
     | isNothing mToken                          = debugRequest >> badRequest
     | fromJust mToken /= optToken options       = debugRequest >> unauthorized
     | isNothing mUser || isNothing mUserCommand = debugRequest >> badRequest
-    | otherwise                                 = debugRequest >> forkIO (evalStateT (runReaderT action options) manager) >> accepted
+    | otherwise                                 = debugRequest >> forkIO (evalStateT (runReaderT action options) manager) >> ok
     where
         debugRequest = when (optDebug options) $ print request
 
-        accepted        = respond $ responseLBS status202 [] (BSLC.pack $ unwords [":wolf:", fromJust mUserCommand, ":moon:"])
+        ok              = respond $ responseLBS status200 [] (BSLC.pack $ unwords [":wolf:", fromJust mUserCommand, ":moon:"])
         badRequest      = respond $ responseLBS status400 [] "bad request"
         unauthorized    = respond $ responseLBS status401 [] "unauthorized"
 

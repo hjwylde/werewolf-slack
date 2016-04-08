@@ -12,6 +12,10 @@
 
 * Split out Dockerfile into its own repository. ([#13](https://github.com/hjwylde/werewolf/issues/13))
 
+*Revisions*
+
+* Changed 202 response to 200. ([#17](https://github.com/hjwylde/werewolf/issues/17))
+
 ### v0.3.0.2
 
 *Revisions*
