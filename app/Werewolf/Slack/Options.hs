@@ -26,8 +26,7 @@ import Options.Applicative
 import qualified Werewolf.Slack.Version as This
 
 data Options = Options
-    { optChannelName :: String
-    , optDebug       :: Bool
+    { optDebug       :: Bool
     , optPort        :: Port
     , optToken       :: String
     , optWebhookUrl  :: String
@@ -55,12 +54,7 @@ werewolfSlackInfo = info (infoOptions <*> werewolfSlack) (fullDesc <> header' <>
 -- | An options parser.
 werewolfSlack :: Parser Options
 werewolfSlack = Options
-    <$> strOption (mconcat
-        [ long "channel-name", short 'c', metavar "CHANNEL"
-        , value "werewolf", showDefault
-        , help "Specify the channel name"
-        ])
-    <*> switch (mconcat
+    <$> switch (mconcat
         [ long "debug", short 'd'
         , help "Enable debug mode"
         ])

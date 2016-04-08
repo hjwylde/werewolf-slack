@@ -58,4 +58,4 @@ application options manager request respond
         mToken          = BSC.unpack <$> param "token"
         mUser           = BSC.unpack <$> param "user_name"
         mUserCommand    = BSC.unpack <$> param "text"
-        action          = fromJust $ execute <$> mUser <*> mUserCommand
+        action          = fromJust $ execute <$> mToken <*> mUser <*> mUserCommand

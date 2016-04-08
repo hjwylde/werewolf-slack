@@ -92,11 +92,10 @@ werewolf-slack -p 80 -t ACCESS_TOKEN -v VALIDATION_TOKEN &
 
 #### Configuration
 
-It is possible to also configure the channel to play werewolf in and the port that werewolf-slack
-    listens on.
-This is done via the `--channel-name` (`-c`) and `--port` (`-p`) options respectively.
+It is possible to also configure the port that werewolf-slack listens on. This is done via the
+    `--port` (`-p`) option.
 
-By default the channel name is *werewolf* and port *8080*.
+The default port is *8080*.
 
 ### Usage
 
