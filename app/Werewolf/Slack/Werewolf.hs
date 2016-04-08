@@ -19,7 +19,6 @@ import Control.Monad.Reader
 import Control.Monad.State
 
 import           Data.Aeson
-import           Data.Maybe
 import qualified Data.Text               as T
 import qualified Data.Text.Lazy          as TL
 import           Data.Text.Lazy.Encoding
@@ -33,27 +32,22 @@ import System.Process
 import Werewolf.Slack.Options
 import Werewolf.Slack.Slack
 
-execute :: (MonadIO m, MonadReader Options m, MonadState Manager m) => String -> String -> m ()
-execute user userCommand = do
-    channelName <- asks optChannelName
-
-    whenJustM (interpret channelName user userCommand) handle
+execute :: (MonadIO m, MonadReader Options m, MonadState Manager m) => String -> String -> String -> m ()
+execute tag user userCommand = whenJustM (interpret tag user userCommand) handle
 
 interpret :: MonadIO m => String -> String -> String -> m (Maybe Response)
-interpret channelName user userCommand = do
+interpret tag user userCommand = do
     stdout <- liftIO $ readCreateProcess (proc command arguments) ""
 
     return (decode (encodeUtf8 $ TL.pack stdout) :: Maybe Response)
     where
         atUser      = if take 1 user == "@" then user else '@':user
         command     = "werewolf"
-        arguments   = ["--caller", atUser, "--tag", channelName, "interpret", "--"] ++ words userCommand
+        arguments   = ["--caller", atUser, "--tag", tag, "interpret", "--"] ++ words userCommand
 
 handle :: (MonadIO m, MonadReader Options m, MonadState Manager m) => Response -> m ()
 handle response = do
     whenM (asks optDebug) $ liftIO (print response)
 
-    channelName <- asks $ ('#':) . optChannelName
-
     forM_ (messages response) $ \(Message mTo message) ->
-        notify (fromMaybe channelName (T.unpack <$> mTo)) (T.unpack message)
+        notify (T.unpack <$> mTo) (T.unpack message)

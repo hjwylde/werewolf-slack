@@ -6,6 +6,7 @@
 
 * Renamed `--authentication-token` to `--webhook-url`. ([#15](https://github.com/hjwylde/werewolf/issues/15))
 * Renamed `--validation-token` to `--token`. ([#15](https://github.com/hjwylde/werewolf/issues/15))
+* Removed `--channel-name` option. ([#16](https://github.com/hjwylde/werewolf/issues/16))
 
 *Minor*
 
