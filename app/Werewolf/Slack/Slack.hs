@@ -26,14 +26,11 @@ import Network.HTTP.Types.Method
 
 import Werewolf.Slack.Options
 
-url :: MonadReader Options m => m String
-url = asks $ ("https://hooks.slack.com/services/" ++) . optAccessToken
-
 notify :: (MonadIO m, MonadReader Options m, MonadState Manager m) => String -> String -> m ()
 notify to message = do
     manager <- get
 
-    initialRequest  <- url >>= liftIO . parseUrl
+    initialRequest  <- asks optWebhookUrl >>= liftIO . parseUrl
     let request     = initialRequest { method = methodPost, requestBody = body }
 
     whenM (asks optDebug) $ liftIO (print request)

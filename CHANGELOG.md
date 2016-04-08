@@ -2,6 +2,11 @@
 
 ### Upcoming
 
+*Major*
+
+* Renamed `--authentication-token` to `--webhook-url`. ([#15](https://github.com/hjwylde/werewolf/issues/15))
+* Renamed `--validation-token` to `--token`. ([#15](https://github.com/hjwylde/werewolf/issues/15))
+
 *Minor*
 
 * Split out Dockerfile into its own repository. ([#13](https://github.com/hjwylde/werewolf/issues/13))
