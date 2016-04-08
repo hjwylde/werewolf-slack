@@ -43,10 +43,10 @@ runApplication = do
 
 application :: Options -> Manager -> Application
 application options manager request respond
-    | isNothing mToken                              = debugRequest >> badRequest
-    | fromJust mToken /= optValidationToken options = debugRequest >> unauthorized
-    | isNothing mUser || isNothing mUserCommand     = debugRequest >> badRequest
-    | otherwise                                     = debugRequest >> forkIO (evalStateT (runReaderT action options) manager) >> accepted
+    | isNothing mToken                          = debugRequest >> badRequest
+    | fromJust mToken /= optToken options       = debugRequest >> unauthorized
+    | isNothing mUser || isNothing mUserCommand = debugRequest >> badRequest
+    | otherwise                                 = debugRequest >> forkIO (evalStateT (runReaderT action options) manager) >> accepted
     where
         debugRequest = when (optDebug options) $ print request
 

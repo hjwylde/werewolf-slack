@@ -26,11 +26,11 @@ import Options.Applicative
 import qualified Werewolf.Slack.Version as This
 
 data Options = Options
-    { optAccessToken     :: String
-    , optChannelName     :: String
-    , optDebug           :: Bool
-    , optPort            :: Port
-    , optValidationToken :: String
+    { optChannelName :: String
+    , optDebug       :: Bool
+    , optPort        :: Port
+    , optToken       :: String
+    , optWebhookUrl  :: String
     } deriving (Eq, Show)
 
 -- | The default preferences.
@@ -56,10 +56,6 @@ werewolfSlackInfo = info (infoOptions <*> werewolfSlack) (fullDesc <> header' <>
 werewolfSlack :: Parser Options
 werewolfSlack = Options
     <$> strOption (mconcat
-        [ long "access-token", short 't', metavar "TOKEN"
-        , help "Specify the access token"
-        ])
-    <*> strOption (mconcat
         [ long "channel-name", short 'c', metavar "CHANNEL"
         , value "werewolf", showDefault
         , help "Specify the channel name"
@@ -74,8 +70,12 @@ werewolfSlack = Options
         , help "Specify the port for the server to listen on"
         ])
     <*> strOption (mconcat
-        [ long "validation-token", short 'v', metavar "TOKEN"
-        , help "Specify the validation token"
+        [ long "token", short 't', metavar "TOKEN"
+        , help "Specify the Slash Command token"
+        ])
+    <*> strOption (mconcat
+        [ long "webhook-url", short 'u', metavar "URL"
+        , help "Specify the Incoming Webhook URL"
         ])
     where
         portOption = option auto
