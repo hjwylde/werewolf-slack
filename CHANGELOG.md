@@ -2,6 +2,8 @@
 
 ### Upcoming
 
+### v0.4.0.0
+
 *Major*
 
 * Renamed `--authentication-token` to `--webhook-url`. ([#15](https://github.com/hjwylde/werewolf/issues/15))
