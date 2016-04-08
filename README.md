@@ -31,14 +31,14 @@ For the Werewolves: devour all of the Villagers.
 
 #### Preparing Slack
 
-Set up an Incoming WebHook [here](https://my.slack.com/services/new/incoming-webhook/).
-Make note of the *access token*, we'll be using that soon.
+Set up an Incoming Webhook [here](https://my.slack.com/services/new/incoming-webhook/).
+Make note of the *webhook url*, we'll be using that soon.
 
 Set up a Slash Command (`/werewolf` or similar)
     [here](https://my.slack.com/services/new/slash-commands/).
 The Slash Command should perform a GET request to the server werewolf-slack is going to be hosted
     on.
-Make note of the *validation token* here too.
+Make note of the *token* here too.
 
 #### Installing
 
@@ -81,13 +81,13 @@ Make sure to add rules to your firewall for werewolf-slack's port.
 **With Docker:**
 
 ```bash
-docker run -d -p 80:8080 hjwylde/werewolf-slack-docker -t ACCESS_TOKEN -v VALIDATION_TOKEN
+docker run -d -p 80:8080 hjwylde/werewolf-slack-docker -v TOKEN -u WEBHOOK_URL
 ```
 
 **With werewolf-slack:**
 
 ```bash
-werewolf-slack -p 80 -t ACCESS_TOKEN -v VALIDATION_TOKEN &
+werewolf-slack -p 80 -v TOKEN -u WEBHOOK_URL &
 ```
 
 #### Configuration
