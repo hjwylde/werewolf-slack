@@ -71,7 +71,7 @@ export PATH=$PATH:~/.cabal/bin
 
 werewolf-slack is a simple web server that listens for events from the Slack Slash Command.
 After receiving an event werewolf-slack forwards it on to the werewolf game engine and uses the
-    Incoming WebHook to send back the response.
+    Incoming Webhook to send back the response.
 
 Running werewolf-slack is easiest done using either
     [Docker](https://www.docker.com/) (recommended) or
