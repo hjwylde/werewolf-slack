@@ -1,6 +1,6 @@
 # werewolf-slack
 
-[![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/hjwylde/werewolf-slack.svg?branch=master)](https://travis-ci.org/hjwylde/werewolf-slack)
 [![Release](https://img.shields.io/github/release/hjwylde/werewolf-slack.svg)](https://github.com/hjwylde/werewolf-slack/releases/latest)
 [![werewolf-slack on Stackage LTS](https://www.stackage.org/package/werewolf-slack/badge/lts)](https://www.stackage.org/lts/package/werewolf-slack)
