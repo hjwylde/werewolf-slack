@@ -81,13 +81,13 @@ Make sure to add rules to your firewall for werewolf-slack's port.
 **With Docker:**
 
 ```bash
-docker run -d -p 80:8080 hjwylde/werewolf-slack-docker -v TOKEN -u WEBHOOK_URL
+docker run -d -P hjwylde/werewolf-slack-docker -v TOKEN -u WEBHOOK_URL
 ```
 
 **With werewolf-slack:**
 
 ```bash
-werewolf-slack -p 80 -v TOKEN -u WEBHOOK_URL &
+werewolf-slack -v TOKEN -u WEBHOOK_URL &
 ```
 
 #### Configuration
@@ -95,7 +95,7 @@ werewolf-slack -p 80 -v TOKEN -u WEBHOOK_URL &
 It is possible to also configure the port that werewolf-slack listens on. This is done via the
     `--port` (`-p`) option.
 
-The default port is *8080*.
+The default port is *80*.
 
 ### Usage
 

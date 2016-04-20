@@ -2,6 +2,10 @@
 
 ### Upcoming
 
+*Revisions*
+
+* Changed the default port to 80.
+
 ### v1.0.0.0
 
 *Major*

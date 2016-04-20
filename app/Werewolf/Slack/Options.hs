@@ -60,7 +60,7 @@ werewolfSlack = Options
         ])
     <*> portOption (mconcat
         [ long "port", short 'p', metavar "NAT"
-        , value 8080, showDefault
+        , value 80, showDefault
         , help "Specify the port for the server to listen on"
         ])
     <*> strOption (mconcat
