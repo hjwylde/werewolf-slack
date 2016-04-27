@@ -39,7 +39,7 @@ werewolfSlackPrefs = prefs $ columns 100
 
 -- | An optparse parser of a werewolf-slack command.
 werewolfSlackInfo :: ParserInfo Options
-werewolfSlackInfo = info (infoOptions <*> werewolfSlack) (fullDesc <> header' <> progDesc')
+werewolfSlackInfo = info (infoOptions <*> werewolfSlack) (fullDesc <> progDesc')
     where
         infoOptions = helper <*> version
         version     = infoOption ("Version " ++ showVersion This.version) $ mconcat
@@ -47,9 +47,7 @@ werewolfSlackInfo = info (infoOptions <*> werewolfSlack) (fullDesc <> header' <>
             , help "Show this binary's version"
             ]
 
-        header'     = header "A Slack chat interface for playing werewolf."
-        progDesc'   = progDesc
-            "The game engine is based off of the party game Mafia, also known as Werewolf."
+        progDesc' = progDesc "Runs a simple web server that links the werewolf game engine and Slack integrations"
 
 -- | An options parser.
 werewolfSlack :: Parser Options

@@ -5,6 +5,7 @@
 *Revisions*
 
 * Changed the default port to 80.
+* Removed the binary header and updated the program description.
 
 ### v1.0.0.0
 
