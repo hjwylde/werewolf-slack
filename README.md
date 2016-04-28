@@ -12,6 +12,8 @@ Werewolf is a well known social party game, commonly also called Mafia.
 See the [Wikipedia article](https://en.wikipedia.org/wiki/Mafia_(party_game)) for a rundown on it's
     gameplay and history.
 
+![Werewolf for Slack](https://raw.githubusercontent.com/hjwylde/werewolf-slack/master/.readme/werewolf-for-slack.png)
+
 ### Game description
 
 Long has the woods been home to wild creatures, both kind and cruel.
