@@ -2,6 +2,8 @@
 
 ### Upcoming
 
+### v1.0.1.1
+
 *Revisions*
 
 * Bumped max version constraint of werewolf. ([#18](https://github.com/hjwylde/werewolf/issues/18))
