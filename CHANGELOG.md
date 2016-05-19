@@ -2,6 +2,8 @@
 
 ### Upcoming
 
+### v1.0.1.2
+
 *Revisions*
 
 * Bumped max version constraint of werewolf.
