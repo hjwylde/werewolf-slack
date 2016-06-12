@@ -1,4 +1,4 @@
-resolver: nightly-2016-04-04
+resolver: lts-6.2
 ghc-options:
     werewolf-slack: -Werror -Wall -fno-warn-name-shadowing
 
