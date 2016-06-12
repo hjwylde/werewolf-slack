@@ -14,7 +14,7 @@ cache:
 matrix:
     include:
     - env: ARGS="--resolver lts"
-    - env: ARGS="--resolver nightly"
+    - env: ARGS="--resolver nightly --stack-yaml stack-nightly.yaml"
 
 before_install:
 - mkdir -p ~/.local/bin
