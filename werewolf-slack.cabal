@@ -48,4 +48,4 @@ executable werewolf-slack
         text == 1.2.*,
         wai == 3.2.*,
         warp == 3.2.*,
-        werewolf >= 0.5 && < 1.4
+        werewolf >= 0.5 && < 1.5
