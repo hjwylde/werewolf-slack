@@ -9,6 +9,8 @@ Maintainer  : public@hjwylde.com
 Optparse utilities.
 -}
 
+{-# LANGUAGE CPP #-}
+
 module Werewolf.Slack.Options (
     -- * Options
     Options(..),
@@ -17,6 +19,9 @@ module Werewolf.Slack.Options (
     werewolfSlackPrefs, werewolfSlackInfo, werewolfSlack,
 ) where
 
+#if MIN_VERSION_optparse_applicative(0,13,0)
+import Data.Monoid
+#endif
 import Data.Version (showVersion)
 
 import Network.Wai.Handler.Warp
@@ -26,16 +31,20 @@ import Options.Applicative
 import qualified Werewolf.Slack.Version as This
 
 data Options = Options
-    { optDebug       :: Bool
-    , optPort        :: Port
-    , optToken       :: String
-    , optWebhookUrl  :: String
+    { optDebug      :: Bool
+    , optPort       :: Port
+    , optToken      :: String
+    , optWebhookUrl :: String
     } deriving (Eq, Show)
 
 -- | The default preferences.
 --   Limits the help output to 100 columns.
 werewolfSlackPrefs :: ParserPrefs
+#if MIN_VERSION_optparse_applicative(0,13,0)
+werewolfSlackPrefs = prefs $ columns 100 <> showHelpOnEmpty
+#else
 werewolfSlackPrefs = prefs $ columns 100
+#endif
 
 -- | An optparse parser of a werewolf-slack command.
 werewolfSlackInfo :: ParserInfo Options
