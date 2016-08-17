@@ -2,6 +2,8 @@
 
 ### Upcoming
 
+### v1.0.2.0
+
 *Revisions*
 
 * Bumped max version constraint of optparse-applicative. ([#20](https://github.com/hjwylde/werewolf/issues/20))
