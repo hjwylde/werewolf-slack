@@ -1,6 +1,8 @@
-resolver: lts-6.2
+resolver: lts-9.0
 ghc-options:
     werewolf-slack: -Werror -Wall -fno-warn-name-shadowing
 
 packages:
 - '.'
+extra-deps:
+- werewolf-1.5.2.0
