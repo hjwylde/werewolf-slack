@@ -3,8 +3,6 @@
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/hjwylde/werewolf-slack.svg?branch=master)](https://travis-ci.org/hjwylde/werewolf-slack)
 [![Release](https://img.shields.io/github/release/hjwylde/werewolf-slack.svg)](https://github.com/hjwylde/werewolf-slack/releases/latest)
-[![werewolf-slack on Stackage LTS](https://www.stackage.org/package/werewolf-slack/badge/lts)](https://www.stackage.org/lts/package/werewolf-slack)
-[![werewolf-slack on Stackage Nightly](https://www.stackage.org/package/werewolf-slack/badge/nightly)](https://www.stackage.org/nightly/package/werewolf-slack)
 
 A chat interface for playing [werewolf](https://github.com/hjwylde/werewolf) in
     [Slack](https://slack.com/).
