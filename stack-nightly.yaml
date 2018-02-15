@@ -1,8 +1,0 @@
-resolver: nightly-2016-06-12
-ghc-options:
-    werewolf-slack: -Werror -Wall -fno-warn-name-shadowing
-
-packages:
-- '.'
-extra-deps:
-- werewolf-1.4.0.0

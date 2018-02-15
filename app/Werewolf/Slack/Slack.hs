@@ -30,7 +30,7 @@ notify :: (MonadIO m, MonadReader Options m, MonadState Manager m) => Maybe Stri
 notify mTo message = do
     manager <- get
 
-    initialRequest  <- asks optWebhookUrl >>= liftIO . parseUrl
+    initialRequest  <- asks optWebhookUrl >>= liftIO . parseRequest
     let request     = initialRequest { method = methodPost, requestBody = body }
 
     whenM (asks optDebug) $ liftIO (print request)
